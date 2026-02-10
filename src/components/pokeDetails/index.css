@@ -1,0 +1,98 @@
+.detailsPage{
+  display: grid;
+  gap: 20px;
+}
+
+.detailsHeader{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.detailsSubtitle{
+  margin: 4px 0 0;
+  opacity: 0.75;
+}
+
+.detailsError{
+  color: #b91c1c;
+  font-weight: 600;
+}
+
+.detailsGrid{
+  display: grid;
+  grid-template-columns: minmax(240px, 320px) minmax(280px, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.detailsPreview{
+  display: grid;
+  gap: 12px;
+  justify-items: center;
+  text-align: center;
+}
+
+.detailsPreview h3{
+  margin: 0;
+}
+
+.detailsMetaCard{
+  width: 100%;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 12px;
+  padding: 12px;
+  text-align: left;
+}
+
+.detailsMetaCard h4{
+  margin: 0 0 6px;
+}
+
+.detailsMetaCard p{
+  margin: 2px 0;
+}
+
+.detailsForm{
+  background: rgba(0,0,0,0.2);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.dangerBtn{
+  background: #b91c1c;
+  color: #fff;
+}
+
+.detailsModal{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.detailsModalContent{
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  color: #000;
+  min-width: 240px;
+}
+
+.detailsModalActions{
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+@media (max-width: 900px){
+  .detailsGrid{
+    grid-template-columns: 1fr;
+  }
+}
