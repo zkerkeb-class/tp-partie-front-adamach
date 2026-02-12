@@ -1,0 +1,102 @@
+.binderPage{
+  display: grid;
+  gap: 20px;
+}
+
+.binderHeader{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.binderSubtitle{
+  margin: 4px 0 0;
+  opacity: 0.75;
+}
+
+.binderActions{
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.binderGrid{
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(5, minmax(220px, 1fr));
+  align-items: start;
+  justify-items: center;
+}
+
+.binderSlot{
+  display: flex;
+  justify-content: center;
+}
+
+.binderSlot .threeDWrapper{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.binderSlotEmpty{
+  width: 220px;
+  height: 310px;
+  border-radius: 5% / 3.5%;
+  border: 2px dashed rgba(255,255,255,0.2);
+  background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.65);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 12px;
+}
+
+@media (max-width: 1200px){
+  .binderGrid{
+    grid-template-columns: repeat(4, minmax(180px, 1fr));
+  }
+  .binderSlotEmpty{
+    width: 180px;
+    height: 254px;
+  }
+  .binderSlot{
+    transform: scale(0.9);
+  }
+}
+
+@media (max-width: 900px){
+  .binderGrid{
+    grid-template-columns: repeat(2, minmax(160px, 1fr));
+  }
+  .binderSlot{
+    transform: scale(0.85);
+  }
+}
+
+.binderSlotLabel{
+  position: relative;
+  z-index: 2;
+}
+
+.binderSlotMask{
+  position: absolute;
+  inset: 12px;
+  border-radius: 8px;
+  background:
+    repeating-linear-gradient(
+      135deg,
+      rgba(255,255,255,0.08) 0,
+      rgba(255,255,255,0.08) 8px,
+      rgba(255,255,255,0.02) 8px,
+      rgba(255,255,255,0.02) 16px
+    );
+  filter: blur(1px);
+  opacity: 0.5;
+}

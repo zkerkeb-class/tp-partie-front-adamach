@@ -1,0 +1,35 @@
+.createPage{
+  display: grid;
+  gap: 16px;
+}
+
+.createGrid{
+  display: grid;
+  grid-template-columns: minmax(240px, 320px) minmax(280px, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.createPreview{
+  display: grid;
+  gap: 12px;
+  justify-items: center;
+  text-align: center;
+}
+
+.createPreview h3{
+  margin: 0;
+}
+
+.createForm{
+  background: rgba(0,0,0,0.2);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+@media (max-width: 900px){
+  .createGrid{
+    grid-template-columns: 1fr;
+  }
+}

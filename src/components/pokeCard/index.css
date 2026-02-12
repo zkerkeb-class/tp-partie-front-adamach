@@ -1,0 +1,283 @@
+.threeDWrapper{
+  perspective: 750px;
+  isolation: isolate;
+}
+
+.holoCard{
+  width: 220px;
+  height: 310px;
+  position: relative;
+  border-radius: 4% / 2.8%;
+  overflow: visible;
+  isolation: isolate;
+  touch-action: none;
+
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0) 40%),
+    radial-gradient(circle at 30% 20%, rgba(255,255,255,0.18), transparent 55%),
+    linear-gradient(160deg, var(--color1), var(--color2));
+
+  transform-origin: center;
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.5s ease, box-shadow 0.2s ease;
+  will-change: transform, filter;
+
+  box-shadow:
+    -5px -5px 5px -5px var(--color1),
+    5px 5px 5px -5px var(--color2),
+    0 55px 35px -20px rgba(0, 0, 0, 0.5);
+
+  position: relative;
+  border: 4px solid #f7d94c;
+  box-shadow:
+    0 0 0 2px #b98f00 inset,
+    -5px -5px 5px -5px var(--color1),
+    5px 5px 5px -5px var(--color2),
+    0 55px 35px -20px rgba(0, 0, 0, 0.5);
+}
+
+.holoCard:hover{
+  box-shadow:
+    -20px -20px 30px -25px var(--color1),
+    20px 20px 30px -25px var(--color2),
+    0 0 13px 4px rgba(255,255,255,0.3),
+    0 55px 35px -20px rgba(0, 0, 0, 0.5);
+}
+
+.holoCard::before,
+.holoCard::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-repeat: no-repeat;
+  mix-blend-mode: color-dodge;
+  transition: all .33s ease;
+}
+
+.holoCard::before{
+  background-position: var(--gradPos, 50% 50%);
+  background-size: 300% 300%;
+  background-image: linear-gradient(
+    115deg,
+    transparent 0%,
+    var(--color1) 25%,
+    transparent 47%,
+    transparent 53%,
+    var(--color2) 75%,
+    transparent 100%
+  );
+  opacity: .5;
+  filter: brightness(.5) contrast(1);
+  z-index: 1;
+}
+
+.holoCard::after{
+  background-image:
+    url("https://assets.codepen.io/13471/sparkles.gif"),
+    url("https://assets.codepen.io/13471/holo.png"),
+    linear-gradient(125deg,
+      #ff008450 15%,
+      #fca40040 30%,
+      #ffff0030 40%,
+      #00ff8a20 60%,
+      #00cfff40 70%,
+      #cc4cfa50 85%
+    );
+  background-position: var(--sparkPos, 50% 50%);
+  background-size: 160%;
+  background-blend-mode: overlay;
+  filter: brightness(1) contrast(1);
+  opacity: var(--sparkOpacity, .75);
+  z-index: 2;
+}
+
+.holoCard.active::before{
+  background-image: linear-gradient(
+    110deg,
+    transparent 25%,
+    var(--color1) 48%,
+    var(--color2) 52%,
+    transparent 75%
+  );
+  background-size: 250% 250%;
+  opacity: .88;
+  filter: brightness(.66) contrast(1.33);
+}
+
+.holoCard.animated{
+  transition: none;
+  animation: holoCard 12s ease 0s 1;
+}
+
+.holoCard.animated::before{
+  transition: none;
+  animation: holoGradient 12s ease 0s 1;
+}
+
+.holoCard.animated::after{
+  transition: none;
+  animation: holoSparkle 12s ease 0s 1;
+}
+
+.pokePop{
+  position: absolute;
+  left: 50%;
+  top: 6px;
+  transform: translateX(-50%);
+  z-index: 5;
+  pointer-events: none;
+}
+
+.pokeImgPop{
+  width: 165px;
+  height: 165px;
+  object-fit: contain;
+  transform: translateY(-8px) scale(1.02);
+  filter: drop-shadow(0 18px 14px rgba(0,0,0,0.55));
+  transition: transform 0.18s ease, filter 0.18s ease;
+}
+
+.holoCard:hover .pokeImgPop,
+.holoCard.active .pokeImgPop{
+  transform: translateY(-16px) scale(1.08);
+  filter: drop-shadow(0 26px 18px rgba(0,0,0,0.6));
+}
+
+@keyframes holoCard {
+  0%, 100% { transform: rotateX(0deg) rotateY(0deg); }
+  5%, 8%   { transform: rotateX(6deg) rotateY(-20deg); }
+  13%, 16% { transform: rotateX(-9deg) rotateY(32deg); }
+  35%, 38% { transform: rotateX(12deg) rotateY(20deg); }
+  55%      { transform: rotateX(-12deg) rotateY(-27deg); }
+}
+
+@keyframes holoGradient {
+  0%, 100% { opacity: .5; background-position: 50% 50%; filter: brightness(.5) contrast(1); }
+  5%, 9%   { opacity: 1;  background-position: 100% 100%; filter: brightness(.75) contrast(1.25); }
+  13%, 17% { opacity: .88; background-position: 0% 0%; }
+  35%, 39% { opacity: 1;  background-position: 100% 100%; filter: brightness(.5) contrast(1); }
+  55%      { opacity: 1;  background-position: 0% 0%; filter: brightness(.75) contrast(1.25); }
+}
+
+@keyframes holoSparkle {
+  0%, 100% { opacity: .75; background-position: 50% 50%; filter: brightness(1.2) contrast(1.25); }
+  5%, 8%   { opacity: 1;   background-position: 40% 40%; filter: brightness(.8) contrast(1.2); }
+  13%, 16% { opacity: .5;  background-position: 50% 50%; filter: brightness(1.2) contrast(.8); }
+  35%, 38% { opacity: 1;   background-position: 60% 60%; filter: brightness(1) contrast(1); }
+  55%      { opacity: .33; background-position: 45% 45%; filter: brightness(1.2) contrast(1.25); }
+}
+
+.cardContent{
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  z-index: 3;
+  padding: 10px;
+  border-radius: 4px;
+  background: rgba(0,0,0,0.15);
+  backdrop-filter: blur(6px);
+  text-align: left;
+  padding-top: 12px;
+}
+
+.name{
+  margin: 6px 0 2px;
+  text-transform: capitalize;
+  font-size: 18px;
+  color: white;
+}
+
+.meta{
+  margin: 0 0 6px;
+  opacity: 0.85;
+  font-size: 12px;
+  color: white;
+}
+
+.badge{
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: white;
+  background: rgba(255,255,255,0.14);
+}
+
+.typeBadge{
+  position: absolute;
+  top: -15px;
+  left: 12px;
+  z-index: 6;
+}
+
+.typeIcon{
+  width: 77px;
+  height: 77px;
+  object-fit: contain;
+}
+
+.hpBadge{
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  z-index: 6;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  color: #111;
+  background: #f7d94c;
+  border: 2px solid #b98f00;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+}
+
+.headerRow{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.hp{
+  font-weight: 700;
+  font-size: 12px;
+  color: white;
+}
+
+.stats{
+  display: grid;
+  gap: 4px;
+  color: white;
+  font-size: 12px;
+}
+
+.stats div{
+  display: flex;
+  justify-content: space-between;
+}
+
+.pokeCardSkeleton{
+  width: 220px;
+  height: 310px;
+  border-radius: 5% / 3.5%;
+  background: rgba(255,255,255,0.08);
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Bangers&family=Exo+2:wght@300;400;600;700&family=Rajdhani:wght@500;700&display=swap");
+
+.pokeFontScope{
+  font-family: "Exo 2", "Trebuchet MS", Arial, sans-serif;
+}
+
+.pokeFontName{
+  font-family: "Bangers", "Trebuchet MS", Arial, sans-serif;
+  letter-spacing: 0.5px;
+}
+
+.pokeFontNumbers{
+  font-family: "Rajdhani", "Trebuchet MS", Arial, sans-serif;
+  font-weight: 700;
+}
