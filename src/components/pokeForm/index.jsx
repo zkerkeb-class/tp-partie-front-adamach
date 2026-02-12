@@ -6,7 +6,7 @@ const emptyForm = {
   nameJapanese: "",
   nameChinese: "",
   image: "",
-  type: "",
+  type: "normal",
   baseHP: "128",
   baseAttack: "128",
   baseDefense: "128",
@@ -16,6 +16,34 @@ const emptyForm = {
 };
 
 const DEFAULT_IMAGE = "http://localhost:3000/assets/missingno/missingno.jpg";
+const TYPE_OPTIONS = [
+  "normal",
+  "fighting",
+  "flying",
+  "poison",
+  "ground",
+  "rock",
+  "bug",
+  "ghost",
+  "steel",
+  "fire",
+  "water",
+  "grass",
+  "electric",
+  "psychic",
+  "ice",
+  "dragon",
+  "dark",
+  "fairy",
+];
+
+const normalizeType = (value) => {
+  if (Array.isArray(value)) return String(value[0] ?? "").trim().toLowerCase();
+  if (value == null) return "";
+  return String(value).trim().toLowerCase();
+};
+
+const isValidType = (value) => TYPE_OPTIONS.includes(value);
 
 const buildDraftPokemon = (formState) => {
   const english = formState.nameEnglish.trim();
@@ -31,10 +59,7 @@ const buildDraftPokemon = (formState) => {
       chinese,
     },
     image: imageValue,
-    type: formState.type
-      .split(",")
-      .map((t) => t.trim())
-      .filter(Boolean),
+    type: [formState.type || "normal"],
     base: {
       HP: Number(formState.baseHP),
       Attack: Number(formState.baseAttack),
@@ -61,7 +86,7 @@ const PokeForm = ({ initial, onSubmit, submitLabel, onCancel, onChange }) => {
       nameJapanese: initial.name?.japanese ?? "",
       nameChinese: initial.name?.chinese ?? "",
       image: initial.image ?? "",
-      type: Array.isArray(initial.type) ? initial.type.join(", ") : initial.type ?? "",
+      type: isValidType(normalizeType(initial.type)) ? normalizeType(initial.type) : "normal",
       baseHP: initial.base?.HP ?? "",
       baseAttack: initial.base?.Attack ?? "",
       baseDefense: initial.base?.Defense ?? "",
@@ -134,8 +159,14 @@ const PokeForm = ({ initial, onSubmit, submitLabel, onCancel, onChange }) => {
         </div>
       ) : null}
       <label>
-        Types (separes par virgule)
-        <input type="text" value={form.type} onChange={updateField("type")} />
+        Type
+        <select value={form.type} onChange={updateField("type")}>
+          {TYPE_OPTIONS.map((type) => (
+            <option key={type} value={type}>
+              {type}
+            </option>
+          ))}
+        </select>
       </label>
       <label>
         HP

@@ -5,7 +5,7 @@ import "./index.css";
 const LIMIT = 20;
 const API_BASE = "http://localhost:3000";
 
-const PokeList = ({ onSelect, onCreate }) => {
+const PokeList = ({ onSelect, onCreate, onOpenBinder }) => {
   const [pokemons, setPokemons] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -85,6 +85,21 @@ const PokeList = ({ onSelect, onCreate }) => {
         <button className="btn btnAccent" type="button" onClick={onCreate}>
           Ajouter un Pokemon
         </button>
+        <button className="btn btnGhost btnIconBtn" type="button" onClick={onOpenBinder}>
+          <span className="btnIcon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" role="img">
+              <path
+                d="M5 4h10a3 3 0 0 1 3 3v12a1 1 0 0 1-1 1H7a3 3 0 0 1-3-3V4Z"
+                fill="currentColor"
+              />
+              <path
+                d="M7 6h10a1 1 0 0 1 1 1v10H7a2 2 0 0 1-2-2V6a0 0 0 0 1 2 0Z"
+                fill="rgba(0,0,0,0.25)"
+              />
+            </svg>
+          </span>
+          Mon classeur
+        </button>
       </form>
 
       {searchError ? <p>{searchError}</p> : null}
@@ -95,7 +110,22 @@ const PokeList = ({ onSelect, onCreate }) => {
         </ul>
       ) : (
         <>
-          <div style={{ display: "flex", gap: 12, justifyContent: "center", marginBottom: 20 }}>
+          <ul
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 16,
+              padding: 0,
+              justifyContent: "center",
+              listStyle: "none",
+            }}
+          >
+            {pokemons.map((p) => (
+              <PokeCard key={p._id} pokemon={p} onSelect={onSelect} />
+            ))}
+          </ul>
+
+          <div style={{ display: "flex", gap: 12, justifyContent: "center", marginTop: 20 }}>
             <button onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1}>
               Precedent
             </button>
@@ -111,21 +141,6 @@ const PokeList = ({ onSelect, onCreate }) => {
               Suivant
             </button>
           </div>
-
-          <ul
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              gap: 16,
-              padding: 0,
-              justifyContent: "center",
-              listStyle: "none",
-            }}
-          >
-            {pokemons.map((p) => (
-              <PokeCard key={p._id} pokemon={p} onSelect={onSelect} />
-            ))}
-          </ul>
         </>
       )}
     </div>

@@ -21,6 +21,27 @@ const couleursParType = {
   normal: ["#d4d4d8", "#a1a1aa"],
 };
 
+const typeImageIdByType = {
+  normal: 1,
+  fighting: 2,
+  flying: 3,
+  poison: 4,
+  ground: 5,
+  rock: 6,
+  bug: 7,
+  ghost: 8,
+  steel: 9,
+  fire: 10,
+  water: 11,
+  grass: 12,
+  electric: 13,
+  psychic: 14,
+  ice: 15,
+  dragon: 16,
+  dark: 17,
+  fairy: 18,
+};
+
 const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
 
 const PokeCard = ({ pokemon, onSelect }) => {
@@ -29,6 +50,8 @@ const PokeCard = ({ pokemon, onSelect }) => {
   const image = useMemo(() => pokemon.image || "", [pokemon.image]);
   const typePrincipal = (pokemon.type?.[0] || "normal").toLowerCase();
   const [c1, c2] = couleursParType[typePrincipal] || ["rgb(0,231,255)", "rgb(255,0,231)"];
+  const typeImageId = typeImageIdByType[typePrincipal] || typeImageIdByType.normal;
+  const typeImageUrl = `http://localhost:3000/assets/types/${typeImageId}.png`;
 
   const onMove = (e) => {
     const el = ref.current;
@@ -106,7 +129,9 @@ const PokeCard = ({ pokemon, onSelect }) => {
         }}
       >
         <div className="hpBadge pokeFontNumbers">PV {hp}</div>
-        <div className="typeBadge">{typePrincipal}</div>
+        <div className="typeBadge">
+          <img className="typeIcon" src={typeImageUrl} alt={typePrincipal} />
+        </div>
 
         <div className="pokePop">
           {image ? <img className="pokeImgPop" src={image} alt={name} /> : null}
